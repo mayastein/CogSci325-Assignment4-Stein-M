@@ -1,0 +1,19 @@
+---
+title: "Assignment 4"
+output: html_notebook
+---
+
+Load the libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+library(psymetadata)
+```
+Look at the dataset
+```{r}
+?barroso2021
+```
+```{r}
+barroso2021
+```
+
