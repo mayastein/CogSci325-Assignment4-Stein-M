@@ -80,8 +80,13 @@ data_by_yi <- barroso2021 |>
 
 Now I will observe the distribution of effect sizes
 ```{r}
-data_by_yi |> 
-  ggplot(aes(x=fct_reorder(magnitude_yi, abs_yi))) +
+data_by_yi_sorted <- data_by_yi |> 
+  mutate(magnitude_yi=fct_reorder(magnitude_yi, abs_yi))
+```
+
+```{r}
+data_by_yi_sorted |> 
+  ggplot(aes(x=magnitude_yi)) +
   geom_bar()
 ```
 
@@ -89,16 +94,29 @@ data_by_yi |>
 
 Sample size for low/high math ability distributed by grade
 ```{r}
-barroso2021 |> 
+data_by_yi_sorted |> 
   group_by(grade, low_ability) |> 
   ggplot(mapping=aes(x=grade, fill=low_ability)) +
   geom_bar(position="dodge")
 ```
 
-Effect size for low/high math ability distributed by grade
+Effect size distributed by grade
 ```{r}
-barroso2021 |> 
-  group_by(grade, low_ability) |> 
-  ggplot(mapping=aes(x=grade, fill=low_ability)) +
-  geom_bar(position="dodge")
+data_by_yi_sorted |> 
+  group_by(grade, magnitude_yi) |> 
+  summarize(mean_yi = mean(abs_yi), count_yi=n()) |> 
+  ggplot(aes(x=count_yi, y=magnitude_yi))+
+  geom_col() +
+  facet_wrap(~grade)
+```
+
+Effect size distributed by grade - low vs high math ability for grades 2 and 5
+```{r}
+data_by_yi_sorted |>
+  filter(grade==2 | grade == 5) |> 
+  group_by(grade, magnitude_yi, low_ability) |> 
+  summarize(mean_yi = mean(abs_yi), count_yi=n()) |> 
+  ggplot(aes(x=count_yi, y=magnitude_yi, fill=low_ability))+
+  geom_col(position="dodge") +
+  facet_wrap(~grade)
 ```
