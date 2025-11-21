@@ -52,6 +52,39 @@ barroso2021 |>
 ```
 Grade 5 has the biggest sample, as well as students for both high and low math ability conditions. Grade 6 has the lowest sample size, which likely explains the lack of samples for students with low math abilities. The absence/presence of low math ability students in the other grades is not well understood at this time. This will likely play a role in observations of effect size.
 
+I will now look at the range of effect sizes (absolute values of effect size)
+No effect = > 0.0,  < 0.2
+Small effect  = >= 0.2, < 0.5
+Medium effect = >=0.5, <0.8
+Large effect = >0.8
+```{r}
+barroso2021 |> 
+  group_by(yi) |>
+  ggplot(aes(x=abs(yi))) +
+  geom_bar()
+```
+
+Now I am going to group effect sizes based on the magnitude of their absolute value
+```{r}
+data_by_yi <- barroso2021 |> 
+  mutate(
+    abs_yi = abs(yi),
+    magnitude_yi = case_when(
+      abs_yi < 0.2 ~ "No Effect",
+      abs_yi >= 0.2 & abs_yi < 0.5 ~ "Small Effect",
+      abs_yi >= 0.5 & abs_yi < 0.8 ~ "Medium Effect",
+      abs_yi >= 0.8 ~ "Large Effect"
+    )
+  )
+```
+
+Now I will observe the distribution of effect sizes
+```{r}
+data_by_yi |> 
+  ggplot(aes(x=fct_reorder(magnitude_yi, abs_yi))) +
+  geom_bar()
+```
+
 # Visualizations
 
 Sample size for low/high math ability distributed by grade
@@ -62,3 +95,10 @@ barroso2021 |>
   geom_bar(position="dodge")
 ```
 
+Effect size for low/high math ability distributed by grade
+```{r}
+barroso2021 |> 
+  group_by(grade, low_ability) |> 
+  ggplot(mapping=aes(x=grade, fill=low_ability)) +
+  geom_bar(position="dodge")
+```
