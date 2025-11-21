@@ -1,7 +1,11 @@
 ---
 title: "Assignment 4"
 output: html_notebook
+author: "Maya Stein"
+date: "`r Sys.Date()`"
 ---
+
+# Set Up
 
 Load the libraries
 ```{r}
@@ -9,11 +13,42 @@ library(tidyverse)
 library(dplyr)
 library(psymetadata)
 ```
-Look at the dataset
+Look at the data set
 ```{r}
 ?barroso2021
 ```
 ```{r}
 barroso2021
 ```
+
+First I will explore the number of students with low vs high math ability per each grade
+```{r}
+barroso2021 |> 
+  group_by(grade) |> 
+  count(low_ability)
+```
+
+It seems there are no students identified as having low math ability in grades 1, 3, 4, and 6. Now I will confirm if this is accurate
+
+Assess grades 1, 3, 4, and 5
+```{r}
+barroso2021 |> 
+  filter(grade==1 | grade==3 | grade==4 | grade==6) |> 
+  distinct(low_ability)
+```
+
+Assess grades 2 and 5
+```{r}
+barroso2021 |> 
+  filter(grade==2 | grade==5) |> 
+  distinct(low_ability)
+```
+
+I now need to observe the sample size for each grade
+```{r}
+barroso2021 |> 
+  group_by(grade) |> 
+  summarize(n=n())
+```
+Grade 5 has the biggest sample, as well as students for both high and low math ability conditions. Grade 6 has the lowest sample size, which likely explains the lack of samples for students with low math abilities. The absence/presence of low math ability students in the other grades is not well understood at this time. This will likely play a role in observations of effect size.
 
