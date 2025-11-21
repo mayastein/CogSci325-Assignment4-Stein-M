@@ -52,3 +52,13 @@ barroso2021 |>
 ```
 Grade 5 has the biggest sample, as well as students for both high and low math ability conditions. Grade 6 has the lowest sample size, which likely explains the lack of samples for students with low math abilities. The absence/presence of low math ability students in the other grades is not well understood at this time. This will likely play a role in observations of effect size.
 
+# Visualizations
+
+Sample size for low/high math ability distributed by grade
+```{r}
+barroso2021 |> 
+  group_by(grade, low_ability) |> 
+  ggplot(mapping=aes(x=grade, fill=low_ability)) +
+  geom_bar(position="dodge")
+```
+
