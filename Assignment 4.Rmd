@@ -1,28 +1,30 @@
 ---
 title: "Assignment 4"
-output: html_notebook
 author: "Maya Stein"
 date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
 ---
 
 # Set Up
 
 Load the libraries
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 library(dplyr)
 library(psymetadata)
 ```
 Look at the data set
-```{r}
+```{r, echo=FALSE}
 ?barroso2021
 ```
-```{r}
+```{r, echo=FALSE}
 barroso2021
 ```
 
 First I will explore the number of students with low vs high math ability per each grade
-```{r}
+```{r, echo=FALSE}
 barroso2021 |> 
   group_by(grade) |> 
   count(low_ability)
@@ -31,21 +33,21 @@ barroso2021 |>
 It seems there are no students identified as having low math ability in grades 1, 3, 4, and 6. Now I will confirm if this is accurate
 
 Assess grades 1, 3, 4, and 5
-```{r}
+```{r, echo=FALSE}
 barroso2021 |> 
   filter(grade==1 | grade==3 | grade==4 | grade==6) |> 
   distinct(low_ability)
 ```
 
 Assess grades 2 and 5
-```{r}
+```{r, echo=FALSE}
 barroso2021 |> 
   filter(grade==2 | grade==5) |> 
   distinct(low_ability)
 ```
 
 I now need to observe the sample size for each grade
-```{r}
+```{r, echo=FALSE}
 barroso2021 |> 
   group_by(grade) |> 
   summarize(n=n())
@@ -57,7 +59,7 @@ No effect = > 0.0,  < 0.2
 Small effect  = >= 0.2, < 0.5
 Medium effect = >=0.5, <0.8
 Large effect = >0.8
-```{r}
+```{r, echo=FALSE}
 barroso2021 |> 
   group_by(yi) |>
   ggplot(aes(x=abs(yi))) +
@@ -65,7 +67,7 @@ barroso2021 |>
 ```
 
 Now I am going to group effect sizes based on the magnitude of their absolute value
-```{r}
+```{r, echo=FALSE}
 data_by_yi <- barroso2021 |> 
   mutate(
     abs_yi = abs(yi),
@@ -79,12 +81,12 @@ data_by_yi <- barroso2021 |>
 ```
 
 Now I will observe the distribution of effect sizes
-```{r}
+```{r, echo=FALSE}
 data_by_yi_sorted <- data_by_yi |> 
   mutate(magnitude_yi=fct_reorder(magnitude_yi, abs_yi))
 ```
 
-```{r}
+```{r, echo=FALSE}
 data_by_yi_sorted |> 
   ggplot(aes(x=magnitude_yi)) +
   geom_bar()
@@ -93,30 +95,76 @@ data_by_yi_sorted |>
 # Visualizations
 
 Sample size for low/high math ability distributed by grade
-```{r}
-data_by_yi_sorted |> 
-  group_by(grade, low_ability) |> 
-  ggplot(mapping=aes(x=grade, fill=low_ability)) +
-  geom_bar(position="dodge")
+
+```{r, echo=FALSE}
+#Rename the low_ability values
+data_by_yi_sorted <- data_by_yi_sorted |> 
+  mutate(math_ability = case_when(
+    low_ability == 1 ~ "Low_Math_Ability",
+    low_ability == 2 ~ "Avg_Plus_Math_Ability"
+  ))
 ```
 
+```{r, echo=FALSE}
+#create the sample size graph
+sample_size_visualization <- data_by_yi_sorted |>
+  group_by(grade, low_ability) |> 
+  ggplot(mapping=aes(x=grade, fill=math_ability)) +
+  geom_bar(position="dodge") +
+  labs(
+    title = "Distribution of Sample Sizes Per Grade and Math Ability Level",
+    x = "Count",
+    y = "Grade",
+    fill = "Math Ability"
+  ) +
+  theme_dark()
+```
+
+```{r, echo=FALSE}
+#Change colors and save the graph
+visualization1 <- sample_size_visualization + scale_fill_manual(values = c("Avg_Plus_Math_Ability" = "#78FFEC", "Low_Math_Ability" = "#FF99EA"))
+```
+
+
 Effect size distributed by grade
-```{r}
-data_by_yi_sorted |> 
+```{r, echo=FALSE}
+#Create and save the effect size per grade graph
+visualization2 <- data_by_yi_sorted |> 
   group_by(grade, magnitude_yi) |> 
   summarize(mean_yi = mean(abs_yi), count_yi=n()) |> 
   ggplot(aes(x=count_yi, y=magnitude_yi))+
-  geom_col() +
-  facet_wrap(~grade)
+  geom_col(fill="#E5D6FF") +
+  facet_wrap(~grade) +
+  labs(
+    title = "Effect Size Distributions",
+    subtitle = "For Each Grade (1 - 6)",
+    x = "Count",
+    y = "Effect Size"
+  ) +
+  theme_dark()
 ```
 
 Effect size distributed by grade - low vs high math ability for grades 2 and 5
-```{r}
-data_by_yi_sorted |>
+```{r, echo=FALSE}
+#Create and save the graph for low vs high math level effect sizes in grades 2 and 5
+effect_size_visualization <- data_by_yi_sorted |>
   filter(grade==2 | grade == 5) |> 
   group_by(grade, magnitude_yi, low_ability) |> 
   summarize(mean_yi = mean(abs_yi), count_yi=n()) |> 
   ggplot(aes(x=count_yi, y=magnitude_yi, fill=low_ability))+
   geom_col(position="dodge") +
-  facet_wrap(~grade)
+  facet_wrap(~grade) +
+  labs(
+    title = "Effect Size Distributions",
+    subtitle = "For low vs average math abilities, grades 2 and 6",
+    x = "Count",
+    y = "Effect Size",
+    fill = "Math Ability"
+  ) +
+  theme_dark()
+```
+
+```{r, echo=FALSE}
+#Change colors and save the graph
+visualization3 <- effect_size_visualization + scale_fill_manual(values = c("Avg_Plus_Math_Ability" = "#78FFEC", "Low_Math_Ability" = "#FF99EA"))
 ```
