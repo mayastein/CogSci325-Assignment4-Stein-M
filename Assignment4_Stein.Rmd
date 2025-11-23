@@ -1,14 +1,13 @@
 ---
 title: "Assignment 4"
-author: "Maya Stein"
-date: "`r Sys.Date()`"
 output:
-  stevetemplates::memo:
+  pdf_document:
+    latex_engine: xelatex
     keep_tex: true
 fontsize: 10pt
 geometry: margin=0.8in
 ---
-# Set Up & Introduction
+
 
 ```{r load_the_libraries, echo=FALSE, results=FALSE, message=FALSE}
 library(tidyverse)
@@ -42,47 +41,17 @@ barroso2021 |>
   distinct(low_ability)
 ```
 
-## The Data
-
-- For this assignment, I will be analyzing data from the barroso2021 data set. This data set is from the psymetadata package, and it observes the relationship between math achievement and math anxiety (https://psycnet.apa.org/record/2020-80018-001). Participants are in grades 1 through 6, and math ability is characterized as either low or not low.
+- For this assignment, I will be analyzing data from the barroso2021 data set. This data set is from the psymetadata package, and it observes the relationship between math achievement and math anxiety (https://psycnet.apa.org/record/2020-80018-001). Participants are in grades 1 through 6, and math ability is characterized as either low or not low. Grade 5 has a significantly larger sample size than the other grades, which will likely impact effect size measurements. Note: only grades 2 and 5 have students in the low math ability condition.
 
 - The focus of this analysis will be analyzing differences in effect size across different parameters,  where the absolute value was calculated, so values range from 0 (no effect) to 1 (strongest possible effect)
 
 
-## Sample Size By Grade
 
 ```{r sample_size_per_grade, echo=FALSE, results=FALSE, message=FALSE}
 # I now need to observe the sample size for each grade
 barroso2021 |> 
   group_by(grade) |> 
   summarize(n=n())
-```
-Grade 5 has a significantly larger sample size than the other grades, which will likely impact effect size measurements. Note: only grades 2 and 5 have students in the low math ability condition.
-
-## Range of Effect Size Values
-
-Effect sizes are organized on a scale from "no effect" to "large effect":
-
-- No effect: 0.0 until 0.2
-
-- Small effect: 0.2 until 0.5
-
-- Medium effect: 0.5 until 0.8
-
-- Large effect: 0.8 and above
-
-
-```{r effect_size_groupings_raw}
-barroso2021 |> 
-  group_by(yi) |>
-  ggplot(aes(x=abs(yi))) +
-  geom_bar(fill="#E5D6FF") +
-  labs(
-    x = "Effect Size (Raw Value)",
-    y = "Count",
-    title = "Range of Effect Size Measurements (Absolute Value Scale)"
-  ) +
-  theme_dark()
 ```
 
 ```{r effect_size_groupings, echo=FALSE, results=FALSE, message=FALSE}
@@ -105,9 +74,8 @@ data_by_yi_sorted <- data_by_yi |>
   mutate(magnitude_yi=fct_reorder(magnitude_yi, abs_yi))
 ```
 
-## Effect Size Distribution
-```{r effect_size_distribution_visualization}
-data_by_yi_sorted |> 
+```{r effect_size_distribution_visualization, echo=FALSE, results=FALSE, message=FALSE}
+effect_size_vis <- data_by_yi_sorted |> 
   ggplot(aes(x=magnitude_yi)) +
   geom_bar(fill="#E5D6FF") +
   labs(
@@ -118,7 +86,6 @@ data_by_yi_sorted |>
   theme_dark()
 ```
 
-# Visualizations & Analysis
 
 ```{r sample_size_distribution, echo=FALSE, results=FALSE, message=FALSE}
 #Rename the low_ability values
@@ -129,9 +96,8 @@ data_by_yi_sorted <- data_by_yi_sorted |>
   ))
 ```
 
-## Sample Size - Grouped by Grade and Math Ability
 
-```{r sample_size_distribution_visualization}
+```{r sample_size_distribution_visualization, echo=FALSE, results=FALSE, message=FALSE}
 #create the sample size graph
 sample_size_visualization <- data_by_yi_sorted |>
   group_by(grade, low_ability) |> 
@@ -146,16 +112,12 @@ sample_size_visualization <- data_by_yi_sorted |>
   theme_dark()
 ```
 
-```{r show_sample_size_visualization}
+```{r show_sample_size_visualization, echo=FALSE, results=FALSE, message=FALSE}
 #Change colors and save the graph
 visualization1 <- sample_size_visualization + scale_fill_manual(values = c("Avg_Plus_Math_Ability" = "#78FFEC", "Low_Math_Ability" = "#FF99EA"))
 ```
-```{r, echo=FALSE}
-visualization1
-```
 
-## Effect Size Distributed By Grade
-```{r effect_size_distribution_grades_visualization}
+```{r effect_size_distribution_grades_visualization, echo=FALSE, results=FALSE, message=FALSE}
 #Create and save the effect size per grade graph
 visualization2 <- data_by_yi_sorted |> 
   group_by(grade, magnitude_yi) |> 
@@ -175,8 +137,7 @@ visualization2 <- data_by_yi_sorted |>
 visualization2
 ```
 
-## Low vs Other Math Ability - Grades 2 and 5
-```{r effect_size_distribution_grades_ability__visualization}
+```{r effect_size_distribution_grades_ability__visualization, echo=FALSE, results=FALSE, message=FALSE}
 #Create and save the graph for low vs high math level effect sizes in grades 2 and 5
 effect_size_visualization <- data_by_yi_sorted |>
   filter(grade==2 | grade == 5) |> 
@@ -195,7 +156,7 @@ effect_size_visualization <- data_by_yi_sorted |>
   theme_dark()
 ```
 
-```{r show_effect_size_distribution_grades_visualization}
+```{r show_effect_size_distribution_grades_visualization, echo=FALSE, results=FALSE, message=FALSE}
 #Change colors and save the graph
 visualization3 <- effect_size_visualization + scale_fill_manual(values = c("Avg_Plus_Math_Ability" = "#78FFEC", "Low_Math_Ability" = "#FF99EA"))
 ```
