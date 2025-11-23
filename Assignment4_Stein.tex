@@ -1,0 +1,391 @@
+\documentclass[10pt,]{article}
+\usepackage[margin=0.8in]{geometry}
+\newcommand*{\authorfont}{\fontfamily{phv}\selectfont}
+\usepackage{lmodern}
+\usepackage{abstract}
+\renewcommand{\abstractname}{}    % clear the title
+\renewcommand{\absnamepos}{empty} % originally center
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} 
+\usepackage{longtable,booktabs}
+
+\usepackage{parskip}
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+
+\usepackage{titling}
+\setlength{\droptitle}{-.25cm}
+
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{6pt plus 2pt minus 1pt}
+%\setlength{\emergencystretch}{3em}  % prevent overfull lines 
+\setlength{\parskip}{12pt} 
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\linespread{1.05}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{lastpage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt} 
+
+\lhead{}
+\chead{}
+
+\rhead{}
+
+
+\fancypagestyle{firststyle}
+{
+\renewcommand{\headrulewidth}{0pt}%
+   \fancyhf{}
+   \fancyfoot[C]{\small \thepage/\pageref*{LastPage}}
+}
+
+%\def\labelitemi{--}
+%\usepackage{enumitem}
+%\setitemize[0]{leftmargin=25pt}
+%\setenumerate[0]{leftmargin=25pt}
+
+
+\usepackage{titlesec}
+
+\titleformat*{\subsection}{\itshape}
+\titleformat*{\subsubsection}{\itshape}
+
+\makeatletter
+\@ifpackageloaded{hyperref}{}{%
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+}
+\@ifpackageloaded{color}{
+    \PassOptionsToPackage{usenames,dvipsnames}{color}
+}{%
+    \usepackage[usenames,dvipsnames]{color}
+}
+\makeatother
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+             pdfkeywords = {},  
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+
+\setcounter{secnumdepth}{0}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+
+
+
+\usepackage{setspace} 
+
+\usepackage[export]{adjustbox}
+
+
+
+
+\def\citeapos#1{\citeauthor{#1}'s (\citeyear{#1})}
+\begin{document}  
+
+
+
+\thispagestyle{plain} 
+% Here's where it starts to differ from my statement template ----
+
+
+
+
+
+
+
+\setlength{\tabcolsep}{1em}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}ll@{}}
+\textbf{FROM:} &  \\
+% & \\
+\textbf{TO:} &  \\
+% & \\
+\textbf{SUBJECT:} &  \\
+% & \\
+\textbf{DATE:} & 2025-11-23 \\
+% & \\
+\end{tabular}
+
+\vspace{.5 em}
+
+
+\hrule
+
+
+
+\vspace{6 mm}
+	
+
+
+\section{Set Up \& Introduction}\label{set-up-introduction}
+
+\subsection{The Data}\label{the-data}
+
+\begin{itemize}
+\item
+  For this assignment, I will be analyzing data from the barroso2021
+  data set. This data set is from the psymetadata package, and it
+  observes the relationship between math achievement and math anxiety
+  (\url{https://psycnet.apa.org/record/2020-80018-001}). Participants
+  are in grades 1 through 6, and math ability is characterized as either
+  low or not low.
+\item
+  The focus of this analysis will be analyzing differences in effect
+  size across different parameters, where the absolute value was
+  calculated, so values range from 0 (no effect) to 1 (strongest
+  possible effect)
+\end{itemize}
+
+\subsection{Sample Size By Grade}\label{sample-size-by-grade}
+
+Grade 5 has a significantly larger sample size than the other grades,
+which will likely impact effect size measurements. Note: only grades 2
+and 5 have students in the low math ability condition.
+
+\subsection{Range of Effect Size
+Values}\label{range-of-effect-size-values}
+
+Effect sizes are organized on a scale from ``no effect'' to ``large
+effect'':
+
+\begin{itemize}
+\item
+  No effect: 0.0 until 0.2
+\item
+  Small effect: 0.2 until 0.5
+\item
+  Medium effect: 0.5 until 0.8
+\item
+  Large effect: 0.8 and above
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{barroso2021 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(yi) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{abs}\NormalTok{(yi))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\StringTok{"\#E5D6FF"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Effect Size (Raw Value)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"Range of Effect Size Measurements (Absolute Value Scale)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment4_Stein_files/figure-latex/effect_size_groupings_raw-1.pdf}}
+
+\subsection{Effect Size Distribution}\label{effect-size-distribution}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_by\_yi\_sorted }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{magnitude\_yi)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\StringTok{"\#E5D6FF"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Effect Size"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"Range of Effect Sizes"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment4_Stein_files/figure-latex/effect_size_distribution_visualization-1.pdf}}
+
+\section{Visualizations \& Analysis}\label{visualizations-analysis}
+
+\subsection{Sample Size - Grouped by Grade and Math
+Ability}\label{sample-size---grouped-by-grade-and-math-ability}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#create the sample size graph}
+\NormalTok{sample\_size\_visualization }\OtherTok{\textless{}{-}}\NormalTok{ data\_by\_yi\_sorted }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(grade, low\_ability) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping=}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{grade, }\AttributeTok{fill=}\NormalTok{math\_ability)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of Sample Sizes Per Grade and Math Ability Level"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Count"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Grade"}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"Math Ability"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Change colors and save the graph}
+\NormalTok{visualization1 }\OtherTok{\textless{}{-}}\NormalTok{ sample\_size\_visualization }\SpecialCharTok{+} \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Avg\_Plus\_Math\_Ability"} \OtherTok{=} \StringTok{"\#78FFEC"}\NormalTok{, }\StringTok{"Low\_Math\_Ability"} \OtherTok{=} \StringTok{"\#FF99EA"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment4_Stein_files/figure-latex/unnamed-chunk-1-1.pdf}}
+
+\subsection{Effect Size Distributed By
+Grade}\label{effect-size-distributed-by-grade}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create and save the effect size per grade graph}
+\NormalTok{visualization2 }\OtherTok{\textless{}{-}}\NormalTok{ data\_by\_yi\_sorted }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(grade, magnitude\_yi) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_yi =} \FunctionTok{mean}\NormalTok{(abs\_yi), }\AttributeTok{count\_yi=}\FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{count\_yi, }\AttributeTok{y=}\NormalTok{magnitude\_yi))}\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill=}\StringTok{"\#E5D6FF"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{grade) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Effect Size Distributions"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"For Each Grade (1 {-} 6)"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Count"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Effect Size"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'grade'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment4_Stein_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+\subsection{Low vs Other Math Ability - Grades 2 and
+5}\label{low-vs-other-math-ability---grades-2-and-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create and save the graph for low vs high math level effect sizes in grades 2 and 5}
+\NormalTok{effect\_size\_visualization }\OtherTok{\textless{}{-}}\NormalTok{ data\_by\_yi\_sorted }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(grade}\SpecialCharTok{==}\DecValTok{2} \SpecialCharTok{|}\NormalTok{ grade }\SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(grade, magnitude\_yi, math\_ability) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{mean\_yi =} \FunctionTok{mean}\NormalTok{(abs\_yi), }\AttributeTok{count\_yi=}\FunctionTok{n}\NormalTok{()) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{count\_yi, }\AttributeTok{y=}\NormalTok{magnitude\_yi, }\AttributeTok{fill=}\NormalTok{math\_ability))}\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{grade) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Effect Size Distributions"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"For low vs average math abilities, grades 2 and 6"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Count"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Effect Size"}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"Math Ability"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'grade', 'magnitude_yi'. You can override
+## using the `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Change colors and save the graph}
+\NormalTok{visualization3 }\OtherTok{\textless{}{-}}\NormalTok{ effect\_size\_visualization }\SpecialCharTok{+} \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Avg\_Plus\_Math\_Ability"} \OtherTok{=} \StringTok{"\#78FFEC"}\NormalTok{, }\StringTok{"Low\_Math\_Ability"} \OtherTok{=} \StringTok{"\#FF99EA"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Assignment4_Stein_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\section{Conclusion}\label{conclusion}
+
+There is a significantly smaller effect size for low math ability
+participants compared to average-above average students. This is likely
+impacted by the small sample sizes in these conditions. There is a less
+obvious (but still important) difference in effect sizes for each grade.
+Grade 5 has the highest number of scores for each effect size condition
+except ``large effect''. This is likely due to its significantly higher
+sample size than that of the other grades.
+
+
+
+
+\end{document}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+%  \null
+%  \vskip 2em%
+%  \begin{center}%
+  \let \footnote \thanks
+    {\fontsize{18}{20}\selectfont\raggedright  \setlength{\parindent}{0pt} \@title \par}%
+}
+%\fi
+\makeatother
